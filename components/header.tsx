@@ -1,17 +1,16 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 import { config } from "@/lib/config"
-
 import { MenuMain } from "@/components/menu--main"
-import { useRouter } from "next/router"
 
 export function Header() {
   const router = useRouter()
 
   return (
     <header className={router.asPath === "/" ? "bg-yellow-50" : "bg-white"}>
-      <div className="container flex items-center justify-between px-4 py-6 mx-auto">
-        <div className="flex items-center space-x-14">
+      <div className="container flex items-center justify-between px-4 py-4 mx-auto space-x-6 md:py-6">
+        <div className="flex items-center justify-between flex-1 w-full md:justify-start space-x-14">
           <Link href="/" passHref>
             <a className="text-2xl font-bold no-underline">{config.name}</a>
           </Link>
@@ -21,7 +20,7 @@ export function Header() {
           <a
             target="_blank"
             rel="external"
-            className="px-4 py-2 text-white transition-colors bg-black hover:bg-yellow-300 hover:text-black"
+            className="hidden px-4 py-2 text-white transition-colors bg-black md:flex hover:bg-yellow-300 hover:text-black"
           >
             Read the docs
           </a>

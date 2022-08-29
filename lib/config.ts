@@ -1,5 +1,5 @@
 export const config = {
-  name: "Pantheon Decoupled",
+  name: "Pantheon",
   description:
     "A starter template for decoupling your Drupal site with Next.js",
   links: {
@@ -9,16 +9,8 @@ export const config = {
         url: "/",
       },
       {
-        title: "Blog",
+        title: "Articles",
         url: "/articles",
-      },
-      {
-        title: "Recipes",
-        url: "/recipes",
-      },
-      {
-        title: "About",
-        url: "/about-umami",
       },
     ],
   },

@@ -1,5 +1,4 @@
 import { DrupalNode } from "next-drupal"
-import { SectionHeading } from "./section-heading"
 
 interface NodeBasicPageProps {
   node: DrupalNode

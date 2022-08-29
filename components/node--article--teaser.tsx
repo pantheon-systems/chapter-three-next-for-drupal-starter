@@ -11,18 +11,18 @@ interface NodeArticleTeaserProps {
 export function NodeArticleTeaser({ node, ...props }: NodeArticleTeaserProps) {
   return (
     <article
-      className="grid group relative grid-cols-[150px_1fr] gap-6 items-start"
+      className="grid group relative md:grid-cols-[150px_1fr] gap-2 md:gap-6 items-start"
       {...props}
     >
-      {node.field_media_image && (
+      {node.field_image && (
         <figure>
           <Image
-            src={absoluteUrl(node.field_media_image.field_media_image.uri.url)}
+            src={absoluteUrl(node.field_image.uri.url)}
             width={150}
             height={180}
             layout="responsive"
             objectFit="cover"
-            alt={node.field_media_image.field_media_image.resourceIdObjMeta.alt}
+            alt={node.field_image.resourceIdObjMeta.alt}
           />
         </figure>
       )}

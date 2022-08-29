@@ -13,7 +13,7 @@ export function MenuMain({ items }: MenuMainProps) {
   const router = useRouter()
   return (
     <nav>
-      <ul className="flex space-x-12">
+      <ul className="flex space-x-8 md:space-x-12">
         {items.map((item, index) => (
           <li key={index}>
             <Link href={item.url} passHref>

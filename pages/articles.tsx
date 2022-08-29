@@ -24,20 +24,22 @@ export default function ArticlesPage({ articles }: ArticlesPageProps) {
         />
       </Head>
 
-      {articles?.length ? (
-        <section className="pb-20">
-          <SectionHeading
-            heading="All Articles"
-            headingLevel={1}
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit vulputate dui elit, blandit aliquam neque bibendum vitae"
-          />
-          <div className="container grid max-w-6xl grid-cols-2 gap-12 px-4 mx-auto">
+      <section className="pb-20">
+        <SectionHeading
+          heading="All Articles"
+          headingLevel={1}
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit vulputate dui elit, blandit aliquam neque bibendum vitae"
+        />
+        {articles?.length ? (
+          <div className="container grid max-w-6xl gap-8 px-4 mx-auto md:gap-12 md:grid-cols-2">
             {articles.map((article) => (
               <NodeArticleTeaser key={article.id} node={article} />
             ))}
           </div>
-        </section>
-      ) : null}
+        ) : (
+          <p className="text-center text-gray-600">No articles found</p>
+        )}
+      </section>
     </Layout>
   )
 }
@@ -54,12 +56,12 @@ export async function getStaticProps(
         .addFields("node--article", [
           "title",
           "path",
-          "field_media_image",
+          "field_image",
           "uid",
           "created",
         ])
         .addFilter("status", "1")
-        .addInclude(["field_media_image.field_media_image", "uid"])
+        .addInclude(["field_image", "uid"])
         .addSort("created", "desc")
         .getQueryObject(),
     }
@@ -69,5 +71,6 @@ export async function getStaticProps(
     props: {
       articles,
     },
+    revalidate: 10,
   }
 }

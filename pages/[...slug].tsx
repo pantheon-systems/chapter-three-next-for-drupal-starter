@@ -2,13 +2,12 @@ import * as React from "react"
 import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import Head from "next/head"
 import { DrupalNode } from "next-drupal"
+import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
 import { drupal } from "lib/drupal"
 import { NodeArticle } from "components/node--article"
 import { NodeBasicPage } from "components/node--basic-page"
 import { Layout } from "components/layout"
-import { NodeRecipe } from "@/components/node--recipe"
-import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
 const RESOURCE_TYPES = ["node--page", "node--article"]
 
@@ -27,7 +26,6 @@ export default function NodePage({ resource }: NodePageProps) {
       </Head>
       {resource.type === "node--page" && <NodeBasicPage node={resource} />}
       {resource.type === "node--article" && <NodeArticle node={resource} />}
-      {resource.type === "node--recipe" && <NodeRecipe node={resource} />}
     </Layout>
   )
 }
@@ -58,41 +56,14 @@ export async function getStaticProps(
       .addFields("node--article", [
         "title",
         "path",
-        "field_media_image",
+        "field_image",
         "uid",
         "created",
+        "body",
       ])
       .addFilter("status", "1")
-      .addInclude(["field_media_image.field_media_image", "uid"])
+      .addInclude(["field_image", "uid"])
       .addSort("created", "desc")
-      .getQueryObject()
-  }
-
-  if (type === "node--recipe") {
-    params = new DrupalJsonApiParams()
-      .addInclude([
-        "field_media_image.field_media_image",
-        "field_recipe_category",
-        "field_tags",
-      ])
-      .addFields("node--recipe", [
-        "title",
-        "status",
-        "path",
-        "field_recipe_category",
-        "field_cooking_time",
-        "field_difficulty",
-        "field_ingredients",
-        "field_number_of_servings",
-        "field_preparation_time",
-        "field_recipe_instruction",
-        "field_summary",
-        "field_tags",
-        "field_media_image",
-      ])
-      .addFields("media--image", ["field_media_image"])
-      .addFields("file--file", ["uri", "resourceIdObjMeta"])
-      .addFields("taxonomy_term--recipe_category", ["name", "path"])
       .getQueryObject()
   }
 
@@ -124,5 +95,6 @@ export async function getStaticProps(
     props: {
       resource,
     },
+    revalidate: 10,
   }
 }

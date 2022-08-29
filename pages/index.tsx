@@ -10,18 +10,18 @@ import { Layout } from "@/components/layout"
 import { NodeArticleTeaser } from "@/components/node--article--teaser"
 import { Hero } from "@/components/hero"
 import { SectionHeading } from "@/components/section-heading"
-import { NodeRecipeTeaser } from "@/components/node--recipe--teaser"
 
 interface IndexPageProps {
   articles: DrupalNode[]
-  recipes: DrupalNode[]
 }
 
-export default function IndexPage({ articles, recipes }: IndexPageProps) {
+export default function IndexPage({ articles }: IndexPageProps) {
   return (
     <Layout>
       <Head>
-        <title>{config.name}</title>
+        <title>
+          {config.name} - {config.description}
+        </title>
         <meta
           name="description"
           content="A Next.js site powered by a Drupal backend."
@@ -43,33 +43,21 @@ export default function IndexPage({ articles, recipes }: IndexPageProps) {
             </a>
           </Link>
         </Hero>
-        {recipes?.length ? (
-          <section>
-            <SectionHeading
-              heading="Popular Recipes"
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit vulputate dui elit, blandit aliquam neque bibendum vitae"
-            />
-            <div className="container grid grid-cols-4 px-4 mx-auto gap-14">
-              {recipes.map((recipe) => (
-                <NodeRecipeTeaser key={recipe.id} node={recipe} />
-              ))}
-            </div>
-          </section>
-        ) : null}
-        <div className="py-10" />
-        {articles?.length ? (
-          <section className="pb-20 bg-green-50">
-            <SectionHeading
-              heading="Latest Articles"
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit vulputate dui elit, blandit aliquam neque bibendum vitae"
-            />
-            <div className="container grid max-w-6xl grid-cols-2 gap-12 px-4 mx-auto">
+        <section className="pb-10 md:pb-20">
+          <SectionHeading
+            heading="Latest Articles"
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit vulputate dui elit, blandit aliquam neque bibendum vitae"
+          />
+          {articles?.length ? (
+            <div className="container grid max-w-6xl gap-8 px-4 mx-auto md:gap-12 md:grid-cols-2">
               {articles.map((article) => (
                 <NodeArticleTeaser key={article.id} node={article} />
               ))}
             </div>
-          </section>
-        ) : null}
+          ) : (
+            <p className="text-center text-gray-600">No articles found.</p>
+          )}
+        </section>
       </div>
     </Layout>
   )
@@ -87,41 +75,12 @@ export async function getStaticProps(
         .addFields("node--article", [
           "title",
           "path",
-          "field_media_image",
+          "field_image",
           "uid",
           "created",
         ])
         .addFilter("status", "1")
-        .addInclude(["field_media_image.field_media_image", "uid"])
-        .addSort("created", "desc")
-        .addPageLimit(4)
-        .getQueryObject(),
-    }
-  )
-
-  // Fetch the most recent recipes.
-  const recipes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
-    "node--recipe",
-    context,
-    {
-      params: new DrupalJsonApiParams()
-        .addInclude([
-          "field_media_image.field_media_image",
-          "field_recipe_category",
-          "field_tags",
-        ])
-        .addFields("node--recipe", [
-          "title",
-          "status",
-          "path",
-          "field_recipe_category",
-          "field_cooking_time",
-          "field_difficulty",
-          "field_media_image",
-        ])
-        .addFields("media--image", ["field_media_image"])
-        .addFields("file--file", ["uri", "resourceIdObjMeta"])
-        .addFields("taxonomy_term--recipe_category", ["name"])
+        .addInclude(["field_image", "uid"])
         .addSort("created", "desc")
         .addPageLimit(4)
         .getQueryObject(),
@@ -131,7 +90,7 @@ export async function getStaticProps(
   return {
     props: {
       articles,
-      recipes,
     },
+    revalidate: 10,
   }
 }
