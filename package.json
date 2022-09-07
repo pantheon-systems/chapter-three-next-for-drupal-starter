@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build && cp -r .next/static .next/standalone/.next && cp -r public .next/standalone",
+    "start": "node .next/standalone/server.js",
     "preview": "next build && next start",
     "lint": "next lint"
   },
