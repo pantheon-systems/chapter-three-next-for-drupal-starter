@@ -8,7 +8,7 @@ export function Header() {
   const router = useRouter()
 
   return (
-    <header className={router.asPath === "/" ? "bg-yellow-50" : "bg-white"}>
+    <header className={router.asPath === "/" ? "bg-gray-50" : "bg-white"}>
       <div className="container flex items-center justify-between px-4 py-4 mx-auto space-x-6 md:py-6">
         <div className="flex items-center justify-between flex-1 w-full md:justify-start space-x-14">
           <Link href="/" passHref>

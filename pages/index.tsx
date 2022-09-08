@@ -31,7 +31,7 @@ export default function IndexPage({ articles }: IndexPageProps) {
         <Hero
           heading="Welcome to Pantheon Decoupled"
           lead="Level up user experience, resilience, and results with front-end frameworks and a headless open source CMS on a single platform"
-          className="bg-yellow-50"
+          className="bg-gray-50"
         >
           <Link href="https://next-drupal.org/docs" passHref>
             <a
