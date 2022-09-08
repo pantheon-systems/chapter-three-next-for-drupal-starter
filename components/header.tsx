@@ -22,7 +22,7 @@ export function Header() {
             rel="external"
             className="hidden px-4 py-2 text-white transition-colors bg-black md:flex hover:bg-yellow-300 hover:text-black"
           >
-            Read the docs
+            Read the next-drupal docs
           </a>
         </Link>
       </div>
