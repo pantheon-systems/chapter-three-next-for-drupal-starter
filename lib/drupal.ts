@@ -8,5 +8,7 @@ export const drupal = new DrupalClient(
       clientId: process.env.DRUPAL_CLIENT_ID,
       clientSecret: process.env.DRUPAL_CLIENT_SECRET,
     },
+    // @see https://next-drupal.org/docs/configuration#forceiframesamesitecookie
+    forceIframeSameSiteCookie: process.env.NODE_ENV === "development",
   }
 )
