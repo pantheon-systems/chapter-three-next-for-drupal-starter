@@ -1639,7 +1639,7 @@ next-drupal@^1.5.0:
     react "^17.0.0"
     react-dom "^17.0.0"
 
-next@^12.0.0, next@^12.2.3:
+next@^12.0.0, next@^12.2.5:
   version "12.2.5"
   resolved "https://registry.yarnpkg.com/next/-/next-12.2.5.tgz#14fb5975e8841fad09553b8ef41fe1393602b717"
   integrity sha512-tBdjqX5XC/oFs/6gxrZhjmiq90YWizUYU6qOWAfat7zJwrwapJ+BYgX2PmiacunXMaRpeVT4vz5MSPSLgNkrpA==
